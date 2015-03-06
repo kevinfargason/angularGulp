@@ -1,0 +1,15 @@
+{
+  "name": "angularGulp",
+  "version": "0.0.0",
+  "description": "Sample angular project with gulp",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kevin Fargason",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "gulp-debug": "~2.0.0",
+    "gulp-rename": "~1.2.0"
+  }
+}

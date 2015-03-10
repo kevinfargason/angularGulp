@@ -1,1 +1,1 @@
-web: gulp run
+web: node web.js

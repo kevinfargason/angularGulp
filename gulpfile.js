@@ -14,7 +14,7 @@ var rename = require('gulp-rename');
 
 // tasks
 gulp.task('lint', function() {
-  gulp.src([config.src.js, '!./app/bower_components/**'])
+  gulp.src([config.src.js + '/**/*'])
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
     .pipe(jshint.reporter('fail'));
@@ -27,7 +27,7 @@ gulp.task('sass', function(callback){
      return gulp.src([config.src.sass + '/app.scss'])
     .pipe(debug())
     .pipe(sass())
-    .pipe(gulp.dest('./dist/css/'));
+    .pipe(gulp.dest(config.dist.css));
 });
 
 gulp.task('app-css', ['sass'],function() {
@@ -46,16 +46,12 @@ gulp.task('lib-css', ['sass'],function() {
 });
 
 gulp.task('minify-js', function() {
-  gulp.src(['./app/**/*.js', '!./app/bower_components/**'])
+  gulp.src([config.src.js + '/**/*'])
     .pipe(uglify({
       // inSourceMap:
       // outSourceMap: "app.js.map"
     }))
     .pipe(gulp.dest('./dist/'))
-});
-gulp.task('copy-bower-components', function () {
-  gulp.src('./app/bower_components/**')
-    .pipe(gulp.dest('dist/bower_components'));
 });
 gulp.task('copy-html-files', function () {
   gulp.src('./app/**/*.html')
@@ -82,14 +78,12 @@ gulp.task('debug', function () {
 
 
 // default task
-gulp.task('default',
-  ['build']
-);
+gulp.task('default', ['build']);
 
 //run the app
 gulp.task('run', ['connectDist']);
 
 // build task
 gulp.task('build',
-  [ 'lint', 'app-css', 'lib-css','minify-js', 'copy-html-files', 'copy-bower-components']
+  [ 'lint', 'app-css', 'lib-css','minify-js', 'copy-html-files']
 );

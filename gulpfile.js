@@ -48,14 +48,17 @@ gulp.task('lib-css', ['sass'],function() {
 gulp.task('minify-js', function() {
   gulp.src([config.src.js + '/**/*'])
     .pipe(uglify({
-      // inSourceMap:
-      // outSourceMap: "app.js.map"
+    'outSourceMap': "out.js.map"
     }))
-    .pipe(gulp.dest('./dist/'))
+    .pipe(gulp.dest('./dist/js/'))
 });
 gulp.task('copy-html-files', function () {
   gulp.src('./app/**/*.html')
     .pipe(gulp.dest('dist/'));
+});
+gulp.task('copy-libs', function () {
+  gulp.src('./app/lib/**/*')
+    .pipe(gulp.dest('dist/lib/'));
 });
 gulp.task('connect', function () {
   connect.server({
@@ -85,5 +88,5 @@ gulp.task('run', ['connectDist']);
 
 // build task
 gulp.task('build',
-  [ 'lint', 'app-css', 'lib-css','minify-js', 'copy-html-files']
+  [ 'lint', 'app-css', 'lib-css','minify-js', 'copy-html-files', 'copy-libs']
 );
